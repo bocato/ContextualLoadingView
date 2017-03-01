@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +20,66 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ymf-L3-0q2" userLabel="Buttons View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xI8-no-wPo">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="100"/>
+                                        <state key="normal" title="Hide Loading View">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="hideLoadingViewDidTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3vl-ce-hQ8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ord-iM-s4T">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="100"/>
+                                        <state key="normal" title="Show Loading View">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showLoadingViewDidTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gXm-Vr-8aM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="xI8-no-wPo" firstAttribute="leading" secondItem="ord-iM-s4T" secondAttribute="trailing" id="6ak-9S-RzK"/>
+                                    <constraint firstAttribute="bottom" secondItem="xI8-no-wPo" secondAttribute="bottom" id="6mk-1O-1HD"/>
+                                    <constraint firstItem="xI8-no-wPo" firstAttribute="top" secondItem="Ymf-L3-0q2" secondAttribute="top" id="Eel-mx-Ong"/>
+                                    <constraint firstAttribute="height" constant="100" id="KX6-ZU-gH6"/>
+                                    <constraint firstItem="ord-iM-s4T" firstAttribute="top" secondItem="Ymf-L3-0q2" secondAttribute="top" id="TTi-hV-XD6"/>
+                                    <constraint firstItem="ord-iM-s4T" firstAttribute="width" secondItem="xI8-no-wPo" secondAttribute="width" id="Tb6-gp-ccH"/>
+                                    <constraint firstItem="ord-iM-s4T" firstAttribute="leading" secondItem="Ymf-L3-0q2" secondAttribute="leading" id="c65-yh-DqP"/>
+                                    <constraint firstAttribute="trailing" secondItem="xI8-no-wPo" secondAttribute="trailing" id="wQC-uk-0FP"/>
+                                    <constraint firstAttribute="bottom" secondItem="ord-iM-s4T" secondAttribute="bottom" id="yWv-tR-Hfj"/>
+                                    <constraint firstItem="xI8-no-wPo" firstAttribute="leading" secondItem="ord-iM-s4T" secondAttribute="trailing" id="zXe-Vk-rhx"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jL2-nx-Ott" userLabel="Container View">
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Ymf-L3-0q2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="14o-Z2-dte"/>
+                            <constraint firstItem="jL2-nx-Ott" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="AAR-gW-jiu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jL2-nx-Ott" secondAttribute="bottom" id="EKQ-Wf-LnN"/>
+                            <constraint firstItem="Ymf-L3-0q2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QoC-Bn-PyG"/>
+                            <constraint firstItem="jL2-nx-Ott" firstAttribute="top" secondItem="Ymf-L3-0q2" secondAttribute="bottom" id="XeW-wy-Mgi"/>
+                            <constraint firstAttribute="trailing" secondItem="Ymf-L3-0q2" secondAttribute="trailing" id="imM-AU-XGJ"/>
+                            <constraint firstAttribute="trailing" secondItem="jL2-nx-Ott" secondAttribute="trailing" id="xjQ-zq-2gp"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="jL2-nx-Ott" id="6tJ-Tg-eRa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
     </scenes>
 </document>

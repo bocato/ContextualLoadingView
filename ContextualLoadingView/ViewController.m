@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "LoadingView.h"
 
-@interface ViewController ()
+@interface ViewController ()<LoadingViewDelegate>
+
+@property (strong, nonatomic) LoadingView *loadingView;
+
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -16,14 +21,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self configureLoadingView];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)configureLoadingView {
+    self.loadingView = [LoadingView new];
+    self.loadingView.frame = CGRectMake(0, 0, 320, 400);
+    [self.containerView addSubview:self.loadingView];
+    [self.loadingView configureForView:self.containerView];
+    self.loadingView.delegate = self;
 }
 
+#pragma mark - Button Actions
+- (IBAction)showLoadingViewDidTouchUpInside:(id)sender {
+    [self.loadingView.delegate showLoadingView:self.loadingView];
+}
+
+- (IBAction)hideLoadingViewDidTouchUpInside:(id)sender {
+    [self.loadingView.delegate hideLoadingView:self.loadingView];
+}
 
 @end
