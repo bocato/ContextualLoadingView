@@ -9,6 +9,8 @@
 #import "LoadingView.h"
 #import "Masonry.h"
 
+static CGFloat const kBbackgroundViewAlpha = 0.9;
+
 #pragma mark - Delegate Default Implemetation
 @implementation NSObject(LoadingViewDelegate)
 
@@ -20,7 +22,7 @@
 
 - (void)showLoadingView:(LoadingView *)loadingView {
     [self checkIfTheClassConformsWithLoadingViewDelegate];
-    [loadingView show];
+    loadingView.showBackgroundView ? [loadingView showWithBackground] : [loadingView show];
 }
 
 - (void)hideLoadingView:(LoadingView *)loadingView {
@@ -40,17 +42,15 @@
 @implementation LoadingView
 
 #pragma mark - View LifeCycle
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self configureViewElements];
-    }
-    return self;
+-  (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    [self configureViewElements];
 }
 
 #pragma mark - Getters / Setters
 - (void)setShowBackgroundView:(BOOL)showBackgroundView {
     self.backgroundView.backgroundColor = showBackgroundView ? [UIColor whiteColor] : [UIColor clearColor];
+    self.backgroundView.layer.borderColor = showBackgroundView ? [[UIColor groupTableViewBackgroundColor] CGColor] : [[UIColor clearColor] CGColor];
     _showBackgroundView = showBackgroundView;
 }
 
@@ -58,9 +58,17 @@
 - (void)configureActivityIndicatorBackgroundView {
     self.backgroundView = [[UIView alloc] init];
     self.backgroundView.backgroundColor = [UIColor clearColor];
-    self.backgroundView.alpha = 0.99;
+    self.backgroundView.alpha = kBbackgroundViewAlpha;
     self.backgroundView.clipsToBounds = YES;
     self.backgroundView.layer.cornerRadius = 10.0;
+    self.backgroundView.layer.borderColor = [[UIColor clearColor] CGColor];
+    self.backgroundView.layer.borderWidth = 2.0f;
+    
+    UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    visualEffectView.frame = self.backgroundView.bounds;
+    [self.backgroundView addSubview:visualEffectView];
+    
     [self addSubview:self.backgroundView];
 }
 
@@ -69,7 +77,7 @@
     self.backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
     self.backgroundView.layer.shadowRadius = 2.0;
-    self.backgroundView.layer.shadowOpacity = 0.5;
+    self.backgroundView.layer.shadowOpacity = 0.75;
 }
 
 - (void)configureActivityIndicator {
@@ -108,7 +116,7 @@
 - (void)hide {
     self.showBackgroundView = NO;
     self.alpha = 1.0;
-    self.backgroundView.alpha = 0.99;
+    self.backgroundView.alpha = kBbackgroundViewAlpha;
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 0.0;
     } completion:^(BOOL finished) {
@@ -129,7 +137,7 @@
     [self.activityIndicator startAnimating];
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1.0;
-        self.backgroundView.alpha = 0.99;
+        self.backgroundView.alpha = kBbackgroundViewAlpha;
     }];
 }
 
@@ -142,7 +150,7 @@
     [self.activityIndicator startAnimating];
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1.0;
-        self.backgroundView.alpha = 0.99;
+        self.backgroundView.alpha = kBbackgroundViewAlpha;
     }];
 }
 
