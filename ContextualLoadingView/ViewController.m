@@ -34,11 +34,12 @@
 
 #pragma mark - Button Actions
 - (IBAction)showLoadingViewDidTouchUpInside:(id)sender {
-    [self.loadingView.delegate showLoadingView:self.loadingView];
+    [self.loadingView showWithBackground];
+//    [self.loadingView show];
 }
 
 - (IBAction)hideLoadingViewDidTouchUpInside:(id)sender {
-    [self.loadingView.delegate hideLoadingView:self.loadingView];
+    [self.loadingView hide];
 }
 
 @end

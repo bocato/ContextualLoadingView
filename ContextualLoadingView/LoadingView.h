@@ -19,9 +19,6 @@
 
 @interface LoadingView : UIControl
 
-#pragma mark - Initialization
-- (instancetype)initWithBackgroundView;
-
 #pragma mark - Properties
 @property (strong, nonatomic) id<LoadingViewDelegate> delegate;
 @property (nonatomic, assign) BOOL showBackgroundView;
@@ -30,7 +27,8 @@
 - (void)configureForView:(UIView *)view;
 
 #pragma mark - View Behavior
-- (void)hideView;
-- (void)showView;
+- (void)hide;
+- (void)show;
+- (void)showWithBackground;
 
 @end
