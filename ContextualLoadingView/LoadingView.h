@@ -33,10 +33,17 @@
 
 #pragma mark - Class Methods
 
++ (void)showLoadingViewInTopViewController;
++ (void)showLoadingViewInTopViewControllerWithBackgroundColor:(UIColor*)backgroundColor;
++ (void)showLoadingViewInTopViewControllerWithBackGround;
++ (void)showLoadingViewInTopViewControllerWithBackGroundAndBackgroundColor:(UIColor*)backgroundColor;
+
 + (void)showLoadingViewInView:(UIView*)view;
 + (void)showLoadingViewInView:(UIView *)view withBackgroundColor:(UIColor*)backgroundColor;
 + (void)showLoadingViewWithBackGroundInView:(UIView*)view;
 + (void)showLoadingViewWithBackGroundInView:(UIView*)view withBackgroundColor:(UIColor*)backgroundColor;
+
++ (void)hideLoadingViewInTopViewController;
 + (void)hideLoadingViewInView:(UIView*)view;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "LoadingView.h"
 #import "Masonry.h"
+#import "UIColor+POAdditions.h"
+#import "UIViewController_Extension.h"
 
 static CGFloat const kBbackgroundViewAlpha = 0.9;
 
@@ -62,6 +64,30 @@ static CGFloat const kBbackgroundViewAlpha = 0.9;
     return loadingView;
 }
 
++ (void)showLoadingViewInTopViewController {
+    UIViewController *topController = [UIViewController zp_topBarViewController];
+    LoadingView *loadingView = [LoadingView instanciateNewInView:topController.view withBackgroundColor:nil];
+    [loadingView show];
+}
+
++ (void)showLoadingViewInTopViewControllerWithBackgroundColor:(UIColor*)backgroundColor {
+    UIViewController *topController = [UIViewController zp_topBarViewController];
+    LoadingView *loadingView = [LoadingView instanciateNewInView:topController.view withBackgroundColor:backgroundColor];
+    [loadingView show];
+}
+
++ (void)showLoadingViewInTopViewControllerWithBackGround {
+    UIViewController *topController = [UIViewController zp_topBarViewController];
+    LoadingView *loadingView = [LoadingView instanciateNewInView:topController.view withBackgroundColor:nil];
+    [loadingView showWithBackground];
+}
+
++ (void)showLoadingViewInTopViewControllerWithBackGroundAndBackgroundColor:(UIColor*)backgroundColor {
+    UIViewController *topController = [UIViewController zp_topBarViewController];
+    LoadingView *loadingView = [LoadingView instanciateNewInView:topController.view withBackgroundColor:backgroundColor];
+    [loadingView showWithBackground];
+}
+
 + (void)showLoadingViewInView:(UIView*)view {
     LoadingView *loadingView = [LoadingView instanciateNewInView:view withBackgroundColor:nil];
     [loadingView show];
@@ -84,6 +110,17 @@ static CGFloat const kBbackgroundViewAlpha = 0.9;
 
 + (void)hideLoadingViewInView:(UIView*)view {
     for (UIView *subView in view.subviews) {
+        if ([subView isKindOfClass:[LoadingView class]]) {
+            LoadingView *loadingView = (LoadingView*)subView;
+            [loadingView hide];
+            [loadingView removeFromSuperview];
+        }
+    }
+}
+
++ (void)hideLoadingViewInTopViewController {
+    UIViewController *topController = [UIViewController zp_topBarViewController];
+    for (UIView *subView in topController.view.subviews) {
         if ([subView isKindOfClass:[LoadingView class]]) {
             LoadingView *loadingView = (LoadingView*)subView;
             [loadingView hide];
@@ -126,7 +163,7 @@ static CGFloat const kBbackgroundViewAlpha = 0.9;
 - (void)configureActivityIndicator {
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    self.activityIndicator.color = [UIColor whiteColor];
+    self.activityIndicator.color = [UIColor po_redPurpleColor];
     [self.backgroundView addSubview:self.activityIndicator];
 }
 
