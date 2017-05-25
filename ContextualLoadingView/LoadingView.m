@@ -41,16 +41,65 @@ static CGFloat const kBbackgroundViewAlpha = 0.9;
 
 @implementation LoadingView
 
-#pragma mark - View LifeCycle
--  (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    [self configureViewElements];
+#pragma mark - Instantiation
+- (instancetype)init {
+    if (self = [super init]) {
+        [self configureViewElements];
+        return self;
+    }
+    return nil;
 }
+
++ (instancetype)instanciateNewInView:(UIView*)view withBackgroundColor:(UIColor*)backgroundColor {
+    LoadingView *loadingView = [LoadingView new];
+    loadingView.frame = view.frame;
+    backgroundColor ? [loadingView setBackgroundColor:backgroundColor] : [loadingView setBackgroundColor:[UIColor clearColor]];
+    [view addSubview:loadingView];
+    [view bringSubviewToFront:loadingView];
+    [loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.top.equalTo(view);
+    }];
+    return loadingView;
+}
+
++ (void)showLoadingViewInView:(UIView*)view {
+    LoadingView *loadingView = [LoadingView instanciateNewInView:view withBackgroundColor:nil];
+    [loadingView show];
+}
+
++ (void)showLoadingViewInView:(UIView *)view withBackgroundColor:(UIColor*)backgroundColor {
+    LoadingView *loadingView = [LoadingView instanciateNewInView:view withBackgroundColor:backgroundColor];
+    [loadingView show];
+}
+
++ (void)showLoadingViewWithBackGroundInView:(UIView*)view {
+    LoadingView *loadingView = [LoadingView instanciateNewInView:view withBackgroundColor:nil];
+    [loadingView showWithBackground];
+}
+
++ (void)showLoadingViewWithBackGroundInView:(UIView*)view withBackgroundColor:(UIColor*)backgroundColor {
+    LoadingView *loadingView = [LoadingView instanciateNewInView:view withBackgroundColor:backgroundColor];
+    [loadingView showWithBackground];
+}
+
++ (void)hideLoadingViewInView:(UIView*)view {
+    for (UIView *subView in view.subviews) {
+        if ([subView isKindOfClass:[LoadingView class]]) {
+            LoadingView *loadingView = (LoadingView*)subView;
+            [loadingView hide];
+            [loadingView removeFromSuperview];
+        }
+    }
+}
+
 
 #pragma mark - Getters / Setters
 - (void)setShowBackgroundView:(BOOL)showBackgroundView {
-    self.backgroundView.backgroundColor = showBackgroundView ? [UIColor whiteColor] : [UIColor clearColor];
-    self.backgroundView.layer.borderColor = showBackgroundView ? [[UIColor groupTableViewBackgroundColor] CGColor] : [[UIColor clearColor] CGColor];
+    if (_showBackgroundView != showBackgroundView) {
+        self.backgroundView.backgroundColor = showBackgroundView ? [UIColor whiteColor] : [UIColor clearColor];
+        self.backgroundView.layer.borderColor = showBackgroundView ? [[UIColor groupTableViewBackgroundColor] CGColor] : [[UIColor clearColor] CGColor];
+        [self.backgroundView layoutSubviews];
+    }
     _showBackgroundView = showBackgroundView;
 }
 
@@ -63,12 +112,6 @@ static CGFloat const kBbackgroundViewAlpha = 0.9;
     self.backgroundView.layer.cornerRadius = 10.0;
     self.backgroundView.layer.borderColor = [[UIColor clearColor] CGColor];
     self.backgroundView.layer.borderWidth = 2.0f;
-    
-    UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    visualEffectView.frame = self.backgroundView.bounds;
-    [self.backgroundView addSubview:visualEffectView];
-    
     [self addSubview:self.backgroundView];
 }
 
@@ -83,7 +126,7 @@ static CGFloat const kBbackgroundViewAlpha = 0.9;
 - (void)configureActivityIndicator {
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    self.activityIndicator.color = [UIColor lightGrayColor];
+    self.activityIndicator.color = [UIColor whiteColor];
     [self.backgroundView addSubview:self.activityIndicator];
 }
 

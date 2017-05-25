@@ -31,4 +31,12 @@
 - (void)show;
 - (void)showWithBackground;
 
+#pragma mark - Class Methods
+
++ (void)showLoadingViewInView:(UIView*)view;
++ (void)showLoadingViewInView:(UIView *)view withBackgroundColor:(UIColor*)backgroundColor;
++ (void)showLoadingViewWithBackGroundInView:(UIView*)view;
++ (void)showLoadingViewWithBackGroundInView:(UIView*)view withBackgroundColor:(UIColor*)backgroundColor;
++ (void)hideLoadingViewInView:(UIView*)view;
+
 @end

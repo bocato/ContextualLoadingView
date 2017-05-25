@@ -21,25 +21,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureLoadingView];
-}
-
-- (void)configureLoadingView {
-    self.loadingView = [LoadingView new];
-    self.loadingView.frame = CGRectMake(0, 0, 320, 400);
-    [self.containerView addSubview:self.loadingView];
-    [self.loadingView configureForView:self.containerView];
-    self.loadingView.delegate = self;
 }
 
 #pragma mark - Button Actions
 - (IBAction)showLoadingViewDidTouchUpInside:(id)sender {
-    [self.loadingView showWithBackground];
-//    [self.loadingView show];
+    [LoadingView showLoadingViewInView:self.containerView withBackgroundColor:[UIColor blackColor]];
+//    [LoadingView showLoadingViewInView:self.containerView];
+//    [LoadingView showLoadingViewWithBackGroundInView:self.containerView withBackgroundColor:[UIColor blackColor]];
+//    [LoadingView showLoadingViewWithBackGroundInView:self.containerView];
 }
 
 - (IBAction)hideLoadingViewDidTouchUpInside:(id)sender {
-    [self.loadingView hide];
+    [LoadingView hideLoadingViewInView:self.containerView];
 }
 
 @end
